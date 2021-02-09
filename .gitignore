@@ -1,0 +1,7 @@
+node_modules
+# .env
+TODO
+CHALLENGE_README.md
+*.log
+dist
+coverage
