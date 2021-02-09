@@ -48,12 +48,13 @@ app.use((err: ApiError, _req: Request, res: Response, _next: NextFunction) => {
 
 const httpServer = http.createServer(app);
 
-if (NODE_ENV !== 'test') {
-  (async () => {
-    DataBaseService.setCollections(['artist', 'label', 'release']);
-    await DataBaseService.connect();
-    httpServer.listen(PORT, () => console.log(`🚀 Server ready at http://localhost:${PORT} in ${NODE_ENV} mode`));
-  })();
-}
+(async () => {
+  DataBaseService.setCollections(['artist', 'label', 'release']);
+  await DataBaseService.connect();
+  httpServer.listen(PORT, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT} in ${NODE_ENV} mode`);
+    httpServer.emit('listening');
+  });
+})();
 
 export { httpServer as server, app };
