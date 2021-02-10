@@ -1,7 +1,7 @@
 {
   "watch": ["src"],
   "ext": "ts,json",
-  "ignore": ["src/**/*.spec.ts"],
+  "ignore": ["src/**/*.spec.ts", "src/scripts/**/*"],
   "exec": "ts-node ./src/index.ts",
   "env": {
     "PORT": 8080,

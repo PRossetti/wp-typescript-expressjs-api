@@ -1,6 +1,6 @@
 import supertest from 'supertest';
-import { server } from '@root/index';
-import DataBaseService from '@services/DataBase.service';
+import { server } from '@src/index';
+import DatabaseService from '@services/Database.service';
 
 describe('Ping tests suite case', () => {
   beforeAll((done) => {
@@ -9,7 +9,7 @@ describe('Ping tests suite case', () => {
 
   afterAll((done) => {
     server.close(async () => {
-      await DataBaseService.close();
+      await DatabaseService.close();
       done();
     });
   });

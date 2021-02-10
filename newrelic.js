@@ -5,6 +5,10 @@
  * description of configuration variables and their potential values.
  */
 exports.config = {
+  agent_enabled: process.env.NODE_ENV === 'production',
+  error_collector: {
+    enabled: true,
+  },
   /**
    * Array of application names.
    */

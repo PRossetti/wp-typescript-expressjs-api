@@ -11,9 +11,10 @@
     "noImplicitAny": false,
     "moduleResolution": "node",
     "paths": {
-      "@root/*": ["./src/*"],
+      "@src/*": ["./src/*"],
       "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@routes/*": ["./src/routes/*"]
     },
   },
   "include": ["src/**/*.ts"],

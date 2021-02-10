@@ -8,7 +8,7 @@ const router = Router();
 
 router.use('/ping', ping);
 router.use('/artist', artist);
-router.use('label', label);
+router.use('/label', label);
 router.use('/release', release);
 
 export default router;

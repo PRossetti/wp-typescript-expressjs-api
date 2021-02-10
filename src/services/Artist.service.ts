@@ -1,18 +1,14 @@
-import DataBaseService from './DataBase.service';
+import Joi from 'joi';
+import DbDocumentService from './DBDocument.service';
 
-export default class ArtistService {
-  private static collecionName = 'artist';
+const ArtistSchema = Joi.object({
+  id: Joi.string().required(),
+  name: Joi.string().required(),
+  spotifyId: Joi.string().allow('').required(),
+  genres: Joi.array().items(Joi.string()).required(),
+});
 
-  static getOne(query: object) {
-    return DataBaseService.get(this.collecionName, query);
-  }
-
-  static getMany(query = {}) {
-    const cursor = DataBaseService.getMany(this.collecionName, query);
-    return cursor.toArray();
-  }
-
-  static insert(body: object) {
-    return DataBaseService.insert(this.collecionName, body);
-  }
+export default class ArtistService extends DbDocumentService {
+  static readonly collecionName = 'artist';
+  static readonly schema = ArtistSchema;
 }

@@ -1,7 +1,7 @@
-// require new relic
 import dotenv from 'dotenv';
 dotenv.config();
 import 'module-alias/register';
+import 'newrelic';
 import http from 'http';
 import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
@@ -9,13 +9,17 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import routes from './routes';
-import DataBaseService from './services/DataBase.service';
-import ApiError from './utils/ApiError';
+import DatabaseService from './services/Database.service';
+import populateDatabase from './scripts/populateDatabase';
 
-const { PORT = 8080, NODE_ENV, API_BASE_URL = '/' } = process.env;
-if (NODE_ENV === 'production') {
-  require('newrelic');
-}
+const {
+  PORT = 8080,
+  NODE_ENV,
+  API_BASE_PATH = '/',
+  PROTOCOL = 'http',
+  BASE_URL = 'localhost',
+  POPULATE_DATABASE,
+} = process.env;
 
 const app = express();
 
@@ -25,7 +29,7 @@ app.use(helmet());
 app.use(morgan(NODE_ENV === 'production' ? 'common' : 'dev'));
 app.use(cors());
 
-app.use(API_BASE_URL, routes);
+app.use(API_BASE_PATH, routes);
 
 /** Error handling */
 app.use((_req: Request, res: Response) => {
@@ -34,9 +38,10 @@ app.use((_req: Request, res: Response) => {
   });
 });
 
-app.use((err: ApiError, _req: Request, res: Response, _next: NextFunction) => {
-  const { message = 'Unexpected error', code = 500, tags, details } = err;
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  const { message = 'Unexpected error', code = 500, tags, details, stack } = err;
   const status = typeof code === 'number' && code < 600 ? code : 500;
+  console.error(`[Error handler] ${message}`, { code, tags, details, stack });
 
   res.status(status).json({
     message,
@@ -49,10 +54,16 @@ app.use((err: ApiError, _req: Request, res: Response, _next: NextFunction) => {
 const httpServer = http.createServer(app);
 
 (async () => {
-  DataBaseService.setCollections(['artist', 'label', 'release']);
-  await DataBaseService.connect();
+  DatabaseService.setCollections([
+    { name: 'artist', uniqueField: 'id' },
+    { name: 'label', uniqueField: 'id' },
+    { name: 'release', uniqueField: 'title' },
+  ]);
+  await DatabaseService.connect();
+  if (POPULATE_DATABASE) populateDatabase(true);
+
   httpServer.listen(PORT, () => {
-    console.log(`🚀 Server ready at http://localhost:${PORT} in ${NODE_ENV} mode`);
+    console.log(`🚀 Server ready at ${PROTOCOL}://${BASE_URL}:${PORT} in ${NODE_ENV} mode`);
     httpServer.emit('listening');
   });
 })();

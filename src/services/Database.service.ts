@@ -5,11 +5,11 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 
 const { MONGO_DB_HOST, MONGO_DB_PORT, MONGO_DB_NAME, MONGO_DB_MOCK } = process.env;
 
-class DataBaseService {
+class DatabaseService {
   private uri: string;
   private connection: MongoClient;
   private db: Db;
-  private collections: string[];
+  private collections: { name: string; uniqueField?: string }[];
   private mongoMemoryServer: MongoMemoryServer;
 
   constructor() {
@@ -21,8 +21,12 @@ class DataBaseService {
     this.collections = [];
   }
 
-  setCollections(collections: string[]) {
+  setCollections(collections: { name: string; uniqueField?: string }[]) {
     this.collections = collections;
+  }
+
+  setUri(uri: string) {
+    this.uri = uri;
   }
 
   get(collectionName: string, query: object) {
@@ -89,15 +93,20 @@ class DataBaseService {
 
   async createCollections() {
     await Promise.all(
-      this.collections.map(async (collectionName) => {
-        const collection = await this.db.listCollections({ name: collectionName }).next();
+      this.collections.map(async ({ name, uniqueField }) => {
+        const collection = await this.db.listCollections({ name }).next();
         if (collection) {
-          console.log(`✅ Collection ${collectionName} already existis`);
+          console.log(`✅ Collection ${name} already existis`);
           return;
         }
 
-        await this.db.createCollection(collectionName);
-        console.log(`✅ Collection ${collectionName} created`);
+        const createdCollection = await this.db.createCollection(name);
+        if (uniqueField) {
+          const createdIndex = await createdCollection.createIndex({ [uniqueField]: 1 }, { unique: true });
+          console.log(`Created unique constraint for field ${uniqueField}`, createdIndex);
+        }
+
+        console.log(`✅ Collection ${name} created`);
       }),
     );
   }
@@ -137,4 +146,4 @@ class DataBaseService {
   }
 }
 
-export default new DataBaseService();
+export default new DatabaseService();
