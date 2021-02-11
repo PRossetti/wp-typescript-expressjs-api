@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import { app } from '@src/index';
+import { app } from '@root/index';
 import DatabaseService from '@services/Database.service';
 const request = supertest.agent(app);
 

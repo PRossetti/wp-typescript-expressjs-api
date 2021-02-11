@@ -55,6 +55,10 @@ Stack: [supertest](https://www.npmjs.com/package/supertest "supertest"), [jest](
 ```
 npm run test
 ```
+The project has more than **95% of code coverage**. If coverage goes under 95% it doesn't let you `git push` your code.
+Tests can be debugged with Visual Studio Code, just follow this steps:
+Open in the IDE the `Jest` test file you want to debug and make sure you have that file tab selected.
+GO to the VS Code Debugger and select `Jest Current File` and hit play. That's all! Now you can not only debug the test code but also your aplication code.
 
 ## Performance
 
@@ -81,10 +85,11 @@ Before a branch push, besides running eslint again, tests are run and only does 
 ```
 npm run start
 ```
+This will run the express server in cluster mode with one instance per each cpu available
 
 ## New Relic
 
-[New Relic](https://newrelic.com/ "New Relic") module and configuration file are added to the project configured to run just in production environment. 
+[New Relic](https://newrelic.com/ "New Relic") module and configuration file are added to the project configured to run just in production environment and only if environment variable `ENABLE_NR` is set to `'true'`
 An app name and New Relic key must be provided. This values should be setted in the file newrelic.js in the following lines
 ```
 app_name: ['SET_YOUR_APP_NAME_HERE'], // TODO: set your New Relic app name

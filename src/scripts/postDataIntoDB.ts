@@ -17,7 +17,6 @@ const endpointNames = {
 };
 
 const postDataIntoDB = async (): Promise<void> => {
-  // TODO
   const filesPath = path.join(__dirname, '../..', '/data');
   const fileNames = ['artists.json', 'labels.json', 'releases.json'];
   for (const fileName of fileNames) {

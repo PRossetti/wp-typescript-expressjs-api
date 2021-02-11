@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "CommonJS",
-    "rootDir": "./src",
     "outDir": "./dist",
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -10,13 +9,15 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
-      "@src/*": ["./src/*"],
-      "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@root/*": ["src/*"],
+      "@services/*": ["src/services/*"],
+      "@utils/*": ["src/utils/*"],
+      "@routes/*": ["src/routes/*"],
+      "@mocks/*": ["mocks/*"],
     },
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", ".eslintrc.js"]
+  "exclude": ["node_modules"]
 }

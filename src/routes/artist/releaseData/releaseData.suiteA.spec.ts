@@ -1,9 +1,9 @@
 import supertest from 'supertest';
-import { app } from '@src/index';
+import { app } from '@root/index';
 import DatabaseService from '@services/Database.service';
 const request = supertest.agent(app);
 
-describe('::: Artist Release Data test suite :::', () => {
+describe('::: Artist Release Data test suite (with empty DB) :::', () => {
   beforeAll((done) => {
     DatabaseService.emitter.on('connected', () => done());
   });
@@ -34,6 +34,14 @@ describe('::: Artist Release Data test suite :::', () => {
     expect(response.status).toEqual(400);
     expect(response.body.message).toEqual(
       'ValidationError: "ids" with value "1234,5678" fails to match the required pattern: /^[\\d\\|]+$/',
+    );
+  });
+
+  it('GET /artist/id/asd123 should not pass query validation and return 400', async () => {
+    const response = await request.get('/artist/release-data/id/asd123');
+    expect(response.status).toEqual(400);
+    expect(response.body.message).toEqual(
+      'ValidationError: "id" with value "asd123" fails to match the required pattern: /^\\d+$/',
     );
   });
 

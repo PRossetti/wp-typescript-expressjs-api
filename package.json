@@ -12,8 +12,8 @@
   },
   "scripts": {
     "build": "rm -rf ./build && tsc",
-    "start": "npm run build && node dist/index.js",
-    "start-dev": "MONGO_DB_MOCK=true nodemon",
+    "start": "npm run build && NODE_ENV=production node dist/index.js",
+    "start-dev": "MONGO_DB_MOCK=true POPULATE_DATABASE=true nodemon",
     "prestart-with-db": "npm run db-start",
     "start-with-db": "trap 'exit 0' SIGINT; npm run db-start && MONGO_DB_MOCK=false nodemon",
     "poststart-with-db": "npm run db-stop",
@@ -75,11 +75,5 @@
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
-  },
-  "_moduleAliases": {
-    "@src": "src",
-    "@services": "src/services",
-    "@utils": "src/utils",
-    "@routes": "src/routes"
   }
 }

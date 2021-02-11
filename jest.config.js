@@ -6,10 +6,11 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json'],
   roots: ['./'],
   moduleNameMapper: {
-    '@src(.*)$': '<rootDir>/src/$1',
+    '@root(.*)$': '<rootDir>/src/$1',
     '@services(.*)$': '<rootDir>/src/services$1',
     '@utils(.*)$': '<rootDir>/src/utils$1',
     '@routes(.*)$': '<rootDir>/src/routes$1',
+    '@mocks(.*)$': '<rootDir>/mocks/$1',
   },
   modulePathIgnorePatterns: ['/node_modules/.*'],
   coverageDirectory: '<rootDir>/coverage',
@@ -21,10 +22,10 @@ module.exports = {
   testTimeout: 10000,
   coverageThreshold: {
     global: {
-      statements: 94,
-      branches: 58,
+      statements: 95,
+      branches: 68,
       functions: 95,
-      lines: 94,
+      lines: 95,
     },
   },
 };
