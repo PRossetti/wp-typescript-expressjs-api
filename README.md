@@ -10,10 +10,12 @@ The data schema is inferred from the provided json schema and the sample data, t
 
 ## Development
 
-Prerequisites:
-- You need to have installed [Nodejs](https://nodejs.org/ "Nodejs") 10.xx.xx or higher
+##### Prerequisites:
+You need to have installed:
+- [Nodejs](https://nodejs.org/ "Nodejs") 10.xx.xx or higher
+- [Docker (optional)](https://www.docker.com/get-started "Docker") (In local and non-productive environment, you don't need docker to run this project, keep reading)
 
-To run this project in development just go throw the following steps:
+To run this app in development just go throw the following steps:
 ```
   cd into de project folder
 ```
@@ -27,7 +29,10 @@ $ npm i
 ```
 And that is all! By default the app will be listening on port 8080.
 
-If you have Docker installed, you all can run the whole project inside containers leveraging from docker-compose or you can also make a mix, running your app in local (outside docker) and the database on a container (within docker)
+If you want to run the database inside Docker so this way your data is persisted in a volume, instead of running the `start-dev` script, running this other one:
+```
+npm run start-with-db
+```
 
 ## Loading the database from script
 
