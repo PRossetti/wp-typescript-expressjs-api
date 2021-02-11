@@ -41,13 +41,16 @@ If you run the script `npm run start-with-db` this will automatically start mong
 
 If the script `npm run start` is executed, which is the one meant for production, you should at least start mongodb first with the script `npm run db-start`.
 
-Keep in mind that the cointainer will run with linked to volume where data will be persisted.
+Keep in mind that the cointainer will run linked to a volume where data will be persisted.
 
-To populate mongodb with the given json data, the express server should be running and connected to the database.
-Then in a terminal run the command
+To populate mongodb with the given json data, there are two ways:
+The easiest one is just making sure you have the node environment variable `POPULATE_DATABASE` set to `'true'`. This will indicate the server to run the `populateDatabase` script that will get the job done.
+
+The other way consist in first making sure you have the express server listening and then just run the following script:
 ```
 npm run populate
 ```
+Keep in mind that the script `npm run start-dev` already has `POPULATE_DATABASE` set to `'true'`. With the other scripts you have to change it yourself. For more information on how to do this go to the [configuration section](https://github.com/PRossetti/wp-typescript-expressjs-api/blob/master/README.md#configuration "configuration section").
 
 ## Debugging
 
@@ -129,4 +132,5 @@ Here there are listed just a few, to see more options and requests examples, sea
 
 If needed, all node environment variables can be configured from the .env file used by [dotenv](https://www.npmjs.com/package/dotenv "dotenv").
 This file should not be pushed into the repo, this is a bad and unsecure practice but inside the file you will find a disclaimer and more information about this.
-Also, for development only, you can change the node environment variables from the nodemon.json file
+Also, for development only, you can change the node environment variables from the nodemon.json file.
+The other way is to just set them directly on the scripts, on the package.json file.
