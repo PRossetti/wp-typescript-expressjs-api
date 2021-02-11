@@ -37,14 +37,6 @@ const AbstractControllerWrapper = (dbDocumentService: { getOne(a); insert(a); ge
         next(err);
       }
     }
-
-    static put(): void {
-      throw new Error('method put fro class ArtistController not implemented');
-    }
-
-    static delete(): void {
-      throw new Error('method delete fro class ArtistController not implemented');
-    }
   }
 
   return AbstractController;

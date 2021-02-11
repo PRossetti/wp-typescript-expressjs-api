@@ -7,10 +7,10 @@ export const clearUndefines = (obj: object): object => {
   return newObj;
 };
 
-export const emptyArrayOrObject = (value) => {
+export const isEmptyArrayOrObject = (value) => {
   return (Array.isArray(value) && !value.length) || (typeof value === 'object' && !Object.entries(value).length);
 };
 
 export const isJunk = (value) => {
-  return value === null || value === undefined || value === '' || emptyArrayOrObject(value);
+  return value === null || value === undefined || value === '' || isEmptyArrayOrObject(value);
 };

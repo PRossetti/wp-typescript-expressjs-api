@@ -2,7 +2,7 @@ import Joi from 'joi';
 import DbDocumentService from './DBDocument.service';
 
 const ArtistSchema = Joi.object({
-  id: Joi.string().required(),
+  id: Joi.string().regex(/^\d+$/).required(),
   name: Joi.string().required(),
   spotifyId: Joi.string().allow('').required(),
   genres: Joi.array().items(Joi.string()).required(),

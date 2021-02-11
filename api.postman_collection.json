@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "164c3d27-ea98-41e3-9129-69d88a24f5cd",
+		"name": "wp-typescript-expressjs-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Return all artists data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return a single artist by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data/name/Lil Silva",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data",
+						"name",
+						"Lil Silva"
+					]
+				},
+				"description": "Gets one artist release data by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Return a single artist by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data/111122",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data",
+						"111122"
+					]
+				},
+				"description": "Gets one artist release data by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Return a single artist by id (another way)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data/id/111122",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data",
+						"id",
+						"111122"
+					]
+				},
+				"description": "Gets one artist release data by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Return single artist by id & name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data/id/111122/name/Ed Sheeran",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data",
+						"id",
+						"111122",
+						"name",
+						"Ed Sheeran"
+					]
+				},
+				"description": "Gets one artist release data by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Return multiple artists by ids",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?ids=111122|111333|111338",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": "111122|111333|111338"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return multiple artists by names",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?names=Years %26 Years|SOPHIE",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "names",
+							"value": "Years %26 Years|SOPHIE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter by type single",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?type=single",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "single"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter by type album",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?type=album",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "album"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter by label id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?labelId=222123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "labelId",
+							"value": "222123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter by upc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?upc=5050580590649",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "upc",
+							"value": "5050580590649"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter by upc & type single",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/release-data?upc=5050580590649&type=single",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"release-data"
+					],
+					"query": [
+						{
+							"key": "upc",
+							"value": "5050580590649"
+						},
+						{
+							"key": "type",
+							"value": "single"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all artists (without releases and labels)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single artist by id (without releases and labels)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/artist/111122",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist",
+						"111122"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all releases (without artists and labels)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/release",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"release"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all labels (without artists and releases)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/label",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"label"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single label (without artists and releases)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/label/222126",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"label",
+						"222126"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post label",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"222126\",\n    \"name\": \"Polydor Records\",\n    \"distributor\": \"Universal Music Group\",\n    \"region\": \"UK\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/label",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"label"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post artist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"111122\",\n    \"name\": \"Ed Sheeran\",\n    \"spotifyId\": \"6eUKZXaKkcviH0Ku9w2n3V\",\n    \"genres\": [\n        \"pop\",\n        \"uk pop\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/artist",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"artist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post release",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Divide\",\n    \"upc\": \"190295851330\",\n    \"artists\": [\n        \"111122\"\n    ],\n    \"label\": \"222122\",\n    \"type\": \"album\",\n    \"release_date\": \"2017-03-03\",\n    \"track_count\": 13\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/release",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"release"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

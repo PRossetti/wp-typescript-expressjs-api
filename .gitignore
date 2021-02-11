@@ -5,3 +5,4 @@ CHALLENGE_README.md
 *.log
 dist
 coverage
+.DS_Store

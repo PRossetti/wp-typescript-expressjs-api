@@ -12,7 +12,7 @@ import ArtistService from '@services/Artist.service';
 // Change here your mongodb database info
 const MONGO_DB_HOST = 'localhost';
 const MONGO_DB_PORT = 27017;
-const MONGO_DB_NAME = 'mydb';
+const MONGO_DB_NAME = 'music';
 
 // TODO
 const collectionsNames = {

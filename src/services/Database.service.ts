@@ -1,9 +1,11 @@
 /* eslint-disable no-restricted-syntax */
+import Emitter from 'events';
 import { Cursor, Db, MongoClient } from 'mongodb';
-import { clearUndefines } from '@utils/helpers';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import { clearUndefines } from '@utils/helpers';
 
 const { MONGO_DB_HOST, MONGO_DB_PORT, MONGO_DB_NAME, MONGO_DB_MOCK } = process.env;
+const dbEmmiter = new Emitter();
 
 class DatabaseService {
   private uri: string;
@@ -11,6 +13,7 @@ class DatabaseService {
   private db: Db;
   private collections: { name: string; uniqueField?: string }[];
   private mongoMemoryServer: MongoMemoryServer;
+  public readonly emitter: Emitter;
 
   constructor() {
     if (MONGO_DB_MOCK === 'true') {
@@ -19,6 +22,7 @@ class DatabaseService {
       this.uri = `mongodb://${MONGO_DB_HOST}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`;
     }
     this.collections = [];
+    this.emitter = dbEmmiter;
   }
 
   setCollections(collections: { name: string; uniqueField?: string }[]) {
@@ -32,13 +36,13 @@ class DatabaseService {
   get(collectionName: string, query: object) {
     const cleanQuery = clearUndefines(query);
     const collection = this.db.collection(collectionName);
-    return collection.findOne(cleanQuery);
+    return collection.findOne(cleanQuery, { projection: { _id: 0 } });
   }
 
   getMany(collectionName: string, query: object): Cursor<any> {
     const cleanQuery = clearUndefines(query);
     const collection = this.db.collection(collectionName);
-    return collection.find(cleanQuery);
+    return collection.find(cleanQuery, { projection: { _id: 0 } });
   }
 
   async insert(collectionName: string, data: object) {
@@ -49,45 +53,6 @@ class DatabaseService {
     return {
       data: ops,
       insertedCount,
-    };
-  }
-
-  async update(collectionName: string, query: object, data: { [key: string]: any }, multi = false) {
-    delete data._id;
-    const cleanQuery = clearUndefines(query);
-    const value = clearUndefines(data);
-    const updateMethod = multi ? 'updateMany' : 'updateOne';
-    const options = {
-      upsert: false,
-    };
-
-    const collection = this.db.collection(collectionName);
-    const update = {
-      $set: value,
-    };
-    const { modifiedCount, upsertedId, upsertedCount, matchedCount } = await collection[updateMethod](
-      cleanQuery,
-      update,
-      options,
-    );
-
-    return {
-      modifiedCount,
-      upsertedId,
-      upsertedCount,
-      matchedCount,
-    };
-  }
-
-  async delete(collectionName, query, multi = false) {
-    const cleanQuery = clearUndefines(query);
-    const collection = this.db.collection(collectionName);
-
-    const deleteMethod = multi ? 'deleteMany' : 'deleteOne';
-    const { deletedCount } = await collection[deleteMethod](cleanQuery);
-
-    return {
-      deletedCount,
     };
   }
 
@@ -124,6 +89,7 @@ class DatabaseService {
 
       this.db = this.connection.db(MONGO_DB_NAME);
       await this.createCollections();
+      this.emitter.emit('connected');
       console.log(`🍃 Connected to ${this.db.databaseName} database ${this.mongoMemoryServer ? 'in memory' : ''}`);
     } catch (err) {
       console.error('❌ Error while trying to connect to mongodb, application will crash', err);
@@ -132,17 +98,16 @@ class DatabaseService {
   }
 
   async close() {
-    if (this.connection) await this.connection.close();
-    if (this.mongoMemoryServer) await this.mongoMemoryServer.stop();
+    if (this.connection) {
+      await this.connection.close();
+    }
+    if (this.mongoMemoryServer) {
+      await this.mongoMemoryServer.stop();
+    }
   }
 
-  async getCollections() {
-    const { connection } = this;
-    await connection.connect();
-    const db = connection.db(MONGO_DB_NAME);
-    const collections = await db.collections();
-    connection.close();
-    return collections.map((collection) => collection.collectionName);
+  getCollection(collectionName: string) {
+    return this.db.collection(collectionName);
   }
 }
 

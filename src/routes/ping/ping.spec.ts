@@ -1,21 +1,22 @@
 import supertest from 'supertest';
-import { server } from '@src/index';
+import { app } from '@src/index';
 import DatabaseService from '@services/Database.service';
+const request = supertest.agent(app);
 
-describe('Ping tests suite case', () => {
+describe('::: Ping test suite :::', () => {
   beforeAll((done) => {
-    server.on('listening', () => done());
-  });
-
-  afterAll((done) => {
-    server.close(async () => {
-      await DatabaseService.close();
+    DatabaseService.emitter.on('connected', () => {
       done();
     });
   });
 
+  afterAll(async (done) => {
+    await DatabaseService.close();
+    done();
+  });
+
   it('ping endpoint should return pong', async () => {
-    const { status, text } = await supertest(server).get('/ping').set('Host', 'localhost').expect(200);
+    const { status, text } = await request.get('/ping');
     expect(status).toEqual(200);
     expect(text).toEqual('pong');
   });

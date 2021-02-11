@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { Collection } from 'mongodb';
 import DatabaseService from './Database.service';
 import SchemaValidationService from './SchemaValidation.service';
 
@@ -18,5 +19,9 @@ export default abstract class DbDocumentService {
   static insert(body: object): Promise<any> {
     SchemaValidationService.validate(this.schema, body);
     return DatabaseService.insert(this.collecionName, body);
+  }
+
+  static getCollection(): Collection<any> {
+    return DatabaseService.getCollection(this.collecionName);
   }
 }

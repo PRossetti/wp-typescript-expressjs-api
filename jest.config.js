@@ -13,8 +13,18 @@ module.exports = {
   },
   modulePathIgnorePatterns: ['/node_modules/.*'],
   coverageDirectory: '<rootDir>/coverage',
+  collectCoverageFrom: ['src/**/*.ts', '!src/scripts/**/*'],
   collectCoverage: true,
   reporters: ['default'],
   coverageReporters: ['lcov', 'html', 'json', 'text'],
   setupFiles: ['./jest.setup.js'],
+  testTimeout: 10000,
+  coverageThreshold: {
+    global: {
+      statements: 94,
+      branches: 58,
+      functions: 95,
+      lines: 94,
+    },
+  },
 };
