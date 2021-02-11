@@ -34,7 +34,14 @@ If you want to run the database inside Docker so this way your data is persisted
 npm run start-with-db
 ```
 
-## Loading the database from script
+## Starting the database [mongoDB](https://www.mongodb.com/es "MongoDB") and populating it
+
+This project provides two ways to run a mongodb database. If you execute the script `npm run start-dev`, by default, mongo would run in memory with the module [mongodb-memory-server](https://www.npmjs.com/package/mongodb-memory-server "mongodb-memory-server").
+If you run the script `npm run start-with-db` this will automatically start mongodb in Docker and when you kill the script it will also automatically stop the container.
+
+If the script `npm run start` is executed, which is the one meant for production, you should at least start mongodb first with the script `npm run db-start`.
+
+Keep in mind that the cointainer will run with linked to volume where data will be persisted.
 
 To populate mongodb with the given json data, the express server should be running and connected to the database.
 Then in a terminal run the command

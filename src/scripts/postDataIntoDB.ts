@@ -1,10 +1,12 @@
 /**** For this script to work, the express server must be running ****/
 /************************* npm run post-data *************************/
 import dotenv from 'dotenv';
-dotenv.config();
-import 'module-alias/register';
-import fs from 'fs';
 import path from 'path';
+dotenv.config();
+import aliases from '../config/moduleAlias';
+import moduleAlias from 'module-alias';
+moduleAlias.addAliases(aliases(path.join(__dirname, '..')));
+import fs from 'fs';
 import axios from 'axios';
 import { isJunk } from '@utils/helpers';
 

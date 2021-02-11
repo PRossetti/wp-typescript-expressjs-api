@@ -10,7 +10,7 @@ module.exports = {
     '@services(.*)$': '<rootDir>/src/services$1',
     '@utils(.*)$': '<rootDir>/src/utils$1',
     '@routes(.*)$': '<rootDir>/src/routes$1',
-    '@mocks(.*)$': '<rootDir>/mocks/$1',
+    '@mocks(.*)$': '<rootDir>/src/mocks/$1',
   },
   modulePathIgnorePatterns: ['/node_modules/.*'],
   coverageDirectory: '<rootDir>/coverage',
